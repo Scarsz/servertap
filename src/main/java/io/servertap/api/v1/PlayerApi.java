@@ -171,14 +171,11 @@ public class PlayerApi {
             Integer location = -1;
             for (org.bukkit.inventory.ItemStack itemStack : player.getInventory().getContents()) {
                 location++;
-                if (itemStack != null) {
-                    ItemStack itemObj = new ItemStack();
-                    // TODO: handle item namespaces other than minecraft: It's fine right now as there seem to be no forge + Paper servers
-                    itemObj.setId("minecraft:" + itemStack.getType().toString().toLowerCase());
-                    itemObj.setCount(Integer.valueOf(itemStack.getAmount()));
-                    itemObj.setSlot(location);
-                    inv.add(itemObj);
-                }
+                ItemStack itemObj = new ItemStack();
+                itemObj.setId(itemStack.getType().getKey().toString());
+                itemObj.setCount(itemStack.getAmount());
+                itemObj.setSlot(location);
+                inv.add(itemObj);
             }
             ctx.json(inv);
         } else {
